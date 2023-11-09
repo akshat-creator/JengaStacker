@@ -31,23 +31,23 @@ void setup() {
   }
   Serial.println("Motor Shield found.");
 
-  myMotor->setSpeed(20);  // 10 rpm
+  myMotor->setSpeed(100);  // 10 rpm
 }
 
 void loop() {
   Serial.println("Single coil steps");
-  myMotor->step(10, FORWARD, INTERLEAVE);
- // myMotor->step(100, BACKWARD, SINGLE);
+  myMotor->step(800, FORWARD, SINGLE);
+  myMotor->step(800, BACKWARD, SINGLE);
 
-//   Serial.println("Double coil steps");
-//   myMotor->step(100, FORWARD, DOUBLE);
-//  // myMotor->step(100, BACKWARD, DOUBLE);
+  // Serial.println("Double coil steps");
+  // myMotor->step(100, FORWARD, DOUBLE);
+  // myMotor->step(100, BACKWARD, DOUBLE);
 
-//   Serial.println("Interleave coil steps");
-//   myMotor->step(100, FORWARD, INTERLEAVE);
-//  // myMotor->step(100, BACKWARD, INTERLEAVE);
+  // Serial.println("Interleave coil steps");
+  // myMotor->step(100, FORWARD, INTERLEAVE);
+  // myMotor->step(100, BACKWARD, INTERLEAVE);
 
-//   Serial.println("Microstep steps");
-//   myMotor->step(50, FORWARD, MICROSTEP);
- // myMotor->step(50, BACKWARD, MICROSTEP);
+  // Serial.println("Microstep steps");
+  // myMotor->step(50, FORWARD, MICROSTEP);
+  // myMotor->step(50, BACKWARD, MICROSTEP);
 }
