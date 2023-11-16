@@ -1,14 +1,18 @@
-const int buttonPin = A5;  // the number of the pushbutton pin
+#include <ezButton.h>
+
+ezButton button0(9);
+ezButton button1(10);  
+ezButton button2(11);
+
+// const int buttonPin0 = A2;  // the number of the pushbutton pin
+// const int buttonPin1 = A1;  // the number of the pushbutton pin
+// const int buttonPin2 = A2;  // the number of the pushbutton pin
 
 // Variables will change:
 int ledState = HIGH;        // the current state of the output pin
 int buttonState;            // the current reading from the input pin
 int lastButtonState = LOW;  // the previous reading from the input pin
 
-// the following variables are unsigned longs because the time, measured in
-// milliseconds, will quickly become a bigger number than can be stored in an int.
-unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
 
 const int StepX = 2;
 const int DirX = 5;
@@ -16,9 +20,27 @@ const int StepY = 3;
 const int DirY = 6;
 const int StepZ = 4;
 const int DirZ = 7;
+const int StepA = 12;
+const int DirA = 13;
+
+int StepCountX = 800;
+int StepCountY = 570;
+int StepCountZ = 570;
+int StepCountA = 800;
+
+
+int DelayMicroX = 600;
+int DelayMicroY = 650;
+int DelayMicroZ = 600;
+int DelayMicroA = 600;
+
+
 
 void setup() {
-  pinMode(buttonPin, INPUT);
+  Serial.begin(9600);
+  button0.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button1.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button2.setDebounceTime(50); // set debounce time to 50 milliseconds
 
   pinMode(StepX,OUTPUT);
   pinMode(DirX,OUTPUT);
@@ -26,72 +48,111 @@ void setup() {
   pinMode(DirY,OUTPUT);
   pinMode(StepZ,OUTPUT);
   pinMode(DirZ,OUTPUT);
+  pinMode(StepA,OUTPUT);
+  pinMode(DirA,OUTPUT);
 
 }
 
+void cnc_sheild0() {
+  
+  for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
+    digitalWrite(DirX, LOW); // set direction, HIGH for clockwise
+    digitalWrite(StepX,HIGH);
+    delayMicroseconds(DelayMicroX);
+    digitalWrite(StepX,LOW); 
+    delayMicroseconds(DelayMicroX);
+ 
+    digitalWrite(DirA, HIGH); // set direction, HIGH for clockwise
+    digitalWrite(StepA,HIGH);
+    delayMicroseconds(DelayMicroA);
+    digitalWrite(StepA,LOW); 
+    delayMicroseconds(DelayMicroA);
+ 
+  }
+  delay(500);
+  for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
+    digitalWrite(DirX, HIGH); // set direction, LOW for anticlockwise
+    digitalWrite(StepX,HIGH);
+    delayMicroseconds(DelayMicroX);
+    digitalWrite(StepX,LOW); 
+    delayMicroseconds(DelayMicroX);
+
+    digitalWrite(DirA, LOW); // set direction, LOW for anticlockwise
+    digitalWrite(StepA,HIGH);
+    delayMicroseconds(DelayMicroA);
+    digitalWrite(StepA,LOW); 
+    delayMicroseconds(DelayMicroA);
+  }
+}
+
+void cnc_sheild1() {
+
+  for(int x = 0; x<StepCountY; x++) { // loop for 200 steps
+    digitalWrite(DirY, HIGH);
+    digitalWrite(StepY,HIGH);
+    delayMicroseconds(DelayMicroY);
+    digitalWrite(StepY,LOW); 
+    delayMicroseconds(DelayMicroY);
+  }
+
+  for(int x = 0; x<StepCountY; x++) { // loop for 200 steps
+    digitalWrite(DirY, LOW); // set direction, LOW for anticlockwise
+    digitalWrite(StepY,HIGH);
+    delayMicroseconds(DelayMicroY);
+    digitalWrite(StepY,LOW); 
+    delayMicroseconds(DelayMicroY);
+  }
+}
+
+void cnc_sheild2(){
+
+  for(int x = 0; x<StepCountZ; x++) { // loop for 200 steps
+    digitalWrite(DirZ, HIGH);
+    digitalWrite(StepZ,HIGH);
+    delayMicroseconds(DelayMicroZ);
+    digitalWrite(StepZ,LOW); 
+    delayMicroseconds(DelayMicroZ);
+  }
+
+  for(int x = 0; x<StepCountZ; x++) { // loop for 200 steps
+    digitalWrite(DirZ, LOW); // set direction, LOW for anticlockwise
+    digitalWrite(StepZ,HIGH);
+    delayMicroseconds(DelayMicroZ);
+    digitalWrite(StepZ,LOW); 
+    delayMicroseconds(DelayMicroZ);
+  }
+  
+}
+
 void loop() {
-  // read the state of the switch into a local variable:
-  int reading = digitalRead(buttonPin);
+  button0.loop(); // MUST call the loop() function first
+  button1.loop(); // MUST call the loop() function first
+  button2.loop(); // MUST call the loop() function first
 
   digitalWrite(DirX, HIGH); // set direction, HIGH for clockwise, LOW for anticlockwise
   digitalWrite(DirY, HIGH);
   digitalWrite(DirZ, HIGH);
-  // check to see if you just pressed the button
-  // (i.e. the input went from LOW to HIGH), and you've waited long enough
-  // since the last press to ignore any noise:
 
   // If the switch changed, due to noise or pressing:
-  if (reading != lastButtonState) {
-    // reset the debouncing timer
-    lastDebounceTime = millis();
+
+  if(button0.isPressed()){
+    Serial.println("The button 1 is pressed");
+    cnc_sheild0();
   }
 
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    // whatever the reading is at, it's been there for longer than the debounce
-    // delay, so take it as the actual current state:
-
-    // if the button state has changed:
-    if (reading != buttonState) {
-      buttonState = reading;
-
-      // only toggle the LED if the new button state is HIGH
-      if (buttonState == HIGH) {
-        cnc_sheild();
-        Serial.println("wassup")
-      }
-    }
+  if(button1.isPressed()){
+    Serial.println("The button 2 is pressed");
+    cnc_sheild1();
   }
 
-  // set the LED:
+  if(button2.isPressed()){
+    Serial.println("The button 3 is pressed");
+    cnc_sheild2();
+  }
 
-  // save the reading. Next time through the loop, it'll be the lastButtonState:
-  lastButtonState = reading;
 }
 
-void cnc_sheild() {
 
-  for(int x = 0; x<500; x++) { // loop for 200 steps
-    digitalWrite(StepX,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepX,LOW); 
-    delayMicroseconds(500);
-  }
-  delay(1000); // delay for 1 second
 
-  for(int x = 0; x<500; x++) { // loop for 200 steps
-    digitalWrite(StepY,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepY,LOW); 
-    delayMicroseconds(500);
-  }
-  delay(1000); // delay for 1 second
 
-  for(int x = 0; x<500; x++) { // loop for 200 steps
-    digitalWrite(StepZ,HIGH);
-    delayMicroseconds(500);
-    digitalWrite(StepZ,LOW); 
-    delayMicroseconds(500);
-  }
-  delay(1000); // delay for 1 second
-   
-}
+
