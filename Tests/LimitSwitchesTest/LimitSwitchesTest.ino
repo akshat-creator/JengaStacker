@@ -4,15 +4,28 @@ ezButton button0(9);
 ezButton button1(10);  
 ezButton button2(11);
 
+ezButton buttonX1(26);
+ezButton buttonX2(27);  
+ezButton buttonY1(28);
+ezButton buttonY2(29);
+ezButton buttonZ1(30);  
+ezButton buttonZ2(31);
+ezButton buttonZ3(32);  
+ezButton buttonZ4(33);
+
+int X1,X2,Y1,Y2,Z1,Z2,Z3,Z4 = 0;
 // const int buttonPin0 = A2;  // the number of the pushbutton pin
 // const int buttonPin1 = A1;  // the number of the pushbutton pin
 // const int buttonPin2 = A2;  // the number of the pushbutton pin
 
 // Variables will change:
-int ledState = HIGH;        // the current state of the output pin
-int buttonState;            // the current reading from the input pin
-int lastButtonState = LOW;  // the previous reading from the input pin
-
+// int ledState = HIGH;        // the current state of the output pin
+// int buttonState;            // the current reading from the input pin
+// int lastButtonState = LOW;  // the previous reading from the input pin
+/* 
+High Debounce to make sure the elevator pushers are in sync and to ignore small a small time differnece between the two 
+*/
+const int LimitSwitchDebounceTime = 500;  // 
 
 const int StepX = 2;
 const int DirX = 5;
@@ -41,13 +54,20 @@ int DelayMicroA = 600;
 int DelayMicroE = 600;
 int DelayMicroE2 = 600;
 
-
-
 void setup() {
   Serial.begin(9600);
   button0.setDebounceTime(50); // set debounce time to 50 milliseconds
-  button1.setDebounceTime(50); // set debounce time to 50 milliseconds
-  button2.setDebounceTime(50); // set debounce time to 50 milliseconds
+  button1.setDebounceTime(50); 
+  button2.setDebounceTime(50); 
+
+  buttonX1.setDebounceTime(LimitSwitchDebounceTime); 
+  buttonX2.setDebounceTime(LimitSwitchDebounceTime); 
+  buttonY1.setDebounceTime(LimitSwitchDebounceTime); 
+  buttonY2.setDebounceTime(LimitSwitchDebounceTime); 
+  buttonZ1.setDebounceTime(LimitSwitchDebounceTime); 
+  buttonZ2.setDebounceTime(LimitSwitchDebounceTime); 
+  buttonZ3.setDebounceTime(LimitSwitchDebounceTime); 
+  buttonZ4.setDebounceTime(LimitSwitchDebounceTime); 
 
   pinMode(StepX,OUTPUT);
   pinMode(DirX,OUTPUT);
@@ -66,7 +86,7 @@ void setup() {
 
 void cnc_sheildX() {
   
-  for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
+  while(buttonX1.getState()==1) {
     digitalWrite(DirX, LOW); // set direction, HIGH for clockwise
     digitalWrite(StepX,HIGH);
     delayMicroseconds(DelayMicroX);
@@ -78,10 +98,10 @@ void cnc_sheildX() {
     delayMicroseconds(DelayMicroA);
     digitalWrite(StepA,LOW); 
     delayMicroseconds(DelayMicroA);
- 
+    
   }
   delay(500);
-  for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
+  while(buttonX2.getState()==1) { 
     digitalWrite(DirX, HIGH); // set direction, LOW for anticlockwise
     digitalWrite(StepX,HIGH);
     delayMicroseconds(DelayMicroX);
@@ -98,7 +118,7 @@ void cnc_sheildX() {
 
 void cnc_sheildY() {
 
-  for(int x = 0; x<StepCountY; x++) { // loop for 200 steps
+  for(buttonY1.getState()==1) { // loop for 200 steps
     digitalWrite(DirY, HIGH);
     digitalWrite(StepY,HIGH);
     delayMicroseconds(DelayMicroY);
@@ -106,7 +126,7 @@ void cnc_sheildY() {
     delayMicroseconds(DelayMicroY);
   }
 
-  for(int x = 0; x<StepCountY; x++) { // loop for 200 steps
+  for(buttonY2.getState()==1) { // loop for 200 steps
     digitalWrite(DirY, LOW); // set direction, LOW for anticlockwise
     digitalWrite(StepY,HIGH);
     delayMicroseconds(DelayMicroY);
@@ -117,7 +137,7 @@ void cnc_sheildY() {
 
 void cnc_sheildZ(){
 
-  for(int x = 0; x<StepCountZ; x++) { // loop for 200 steps
+  for(buttonZ1.getState()==1) { // loop for 200 steps
     digitalWrite(DirZ, HIGH);
     digitalWrite(StepZ,HIGH);
     delayMicroseconds(DelayMicroZ);
@@ -125,7 +145,7 @@ void cnc_sheildZ(){
     delayMicroseconds(DelayMicroZ);
   }
 
-  for(int x = 0; x<StepCountZ; x++) { // loop for 200 steps
+  for(buttonZ2.getState()==1) { // loop for 200 steps
     digitalWrite(DirZ, LOW); // set direction, LOW for anticlockwise
     digitalWrite(StepZ,HIGH);
     delayMicroseconds(DelayMicroZ);
