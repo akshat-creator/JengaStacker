@@ -22,17 +22,24 @@ const int StepZ = 4;
 const int DirZ = 7;
 const int StepA = 12;
 const int DirA = 13;
+const int StepE = 23;
+const int DirE = 22;
+const int StepE2 = 25;
+const int DirE2 = 24;
 
 int StepCountX = 800;
 int StepCountY = 570;
 int StepCountZ = 570;
 int StepCountA = 800;
-
+int StepCountE = 800;
+int StepCountE2 = 800;
 
 int DelayMicroX = 600;
 int DelayMicroY = 650;
 int DelayMicroZ = 600;
 int DelayMicroA = 600;
+int DelayMicroE = 600;
+int DelayMicroE2 = 600;
 
 
 
@@ -50,10 +57,14 @@ void setup() {
   pinMode(DirZ,OUTPUT);
   pinMode(StepA,OUTPUT);
   pinMode(DirA,OUTPUT);
+  pinMode(StepE,OUTPUT);
+  pinMode(DirE,OUTPUT);
+  pinMode(StepE2,OUTPUT);
+  pinMode(DirE2,OUTPUT);
 
 }
 
-void cnc_sheild0() {
+void cnc_sheildX() {
   
   for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
     digitalWrite(DirX, LOW); // set direction, HIGH for clockwise
@@ -85,7 +96,7 @@ void cnc_sheild0() {
   }
 }
 
-void cnc_sheild1() {
+void cnc_sheildY() {
 
   for(int x = 0; x<StepCountY; x++) { // loop for 200 steps
     digitalWrite(DirY, HIGH);
@@ -104,7 +115,7 @@ void cnc_sheild1() {
   }
 }
 
-void cnc_sheild2(){
+void cnc_sheildZ(){
 
   for(int x = 0; x<StepCountZ; x++) { // loop for 200 steps
     digitalWrite(DirZ, HIGH);
@@ -124,6 +135,31 @@ void cnc_sheild2(){
   
 }
 
+void cnc_sheildE() {
+
+  for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
+    digitalWrite(DirE, HIGH);
+    digitalWrite(StepE,HIGH);
+    digitalWrite(DirE2, HIGH);
+    digitalWrite(StepE2,HIGH);
+    delayMicroseconds(DelayMicroE);
+    digitalWrite(StepE,LOW); 
+    digitalWrite(StepE2,LOW); 
+    delayMicroseconds(DelayMicroE);
+  }
+
+  for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
+    digitalWrite(DirE, LOW); // set direction, LOW for anticlockwise
+    digitalWrite(StepE,HIGH);
+    digitalWrite(DirE2, LOW); // set direction, LOW for anticlockwise
+    digitalWrite(StepE2,HIGH);
+    delayMicroseconds(DelayMicroE);
+    digitalWrite(StepE,LOW); 
+    digitalWrite(StepE2,LOW); 
+    delayMicroseconds(DelayMicroE);
+  }
+}
+
 void loop() {
   button0.loop(); // MUST call the loop() function first
   button1.loop(); // MUST call the loop() function first
@@ -132,27 +168,25 @@ void loop() {
   digitalWrite(DirX, HIGH); // set direction, HIGH for clockwise, LOW for anticlockwise
   digitalWrite(DirY, HIGH);
   digitalWrite(DirZ, HIGH);
+  digitalWrite(DirE, HIGH);
+  digitalWrite(DirE2, HIGH);
 
   // If the switch changed, due to noise or pressing:
 
   if(button0.isPressed()){
     Serial.println("The button 1 is pressed");
-    cnc_sheild0();
+    cnc_sheildX();
+    cnc_sheildE();
   }
 
   if(button1.isPressed()){
     Serial.println("The button 2 is pressed");
-    cnc_sheild1();
+    cnc_sheildY();
   }
 
   if(button2.isPressed()){
     Serial.println("The button 3 is pressed");
-    cnc_sheild2();
+    cnc_sheildZ();
   }
 
 }
-
-
-
-
-
