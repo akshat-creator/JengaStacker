@@ -22,22 +22,18 @@ const int StepZ = 4;
 const int DirZ = 7;
 const int StepA = 12;
 const int DirA = 13;
-const int StepE = 23;
-const int DirE = 22;
-const int StepE2 = 25;
-const int DirE2 = 24;
 
 int StepCountX = 800;
 int StepCountY = 570;
 int StepCountZ = 570;
 int StepCountA = 800;
-int StepCountE = 1100;
+
 
 int DelayMicroX = 600;
 int DelayMicroY = 650;
 int DelayMicroZ = 600;
 int DelayMicroA = 600;
-int DelayMicroE = 700;
+
 
 
 void setup() {
@@ -54,10 +50,7 @@ void setup() {
   pinMode(DirZ,OUTPUT);
   pinMode(StepA,OUTPUT);
   pinMode(DirA,OUTPUT);
-  pinMode(StepE,OUTPUT);
-  pinMode(DirE,OUTPUT);
-  pinMode(StepE2,OUTPUT);
-  pinMode(DirE2,OUTPUT);
+
 
 }
 

@@ -137,18 +137,18 @@ void cnc_sheildZ(){
 
 void cnc_sheildE() {
 
-  for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
-    digitalWrite(DirE, HIGH);
-    digitalWrite(StepE,HIGH);
-    digitalWrite(DirE2, HIGH);
-    digitalWrite(StepE2,HIGH);
-    delayMicroseconds(DelayMicroE);
-    digitalWrite(StepE,LOW); 
-    digitalWrite(StepE2,LOW); 
-    delayMicroseconds(DelayMicroE);
-  }
+  // for(int x = 0; x<(300); x++) { // loop for 200 steps
+  //   digitalWrite(DirE, HIGH);
+  //   digitalWrite(StepE,HIGH);
+  //   digitalWrite(DirE2, HIGH);
+  //   digitalWrite(StepE2,HIGH);
+  //   delayMicroseconds(DelayMicroE);
+  //   digitalWrite(StepE,LOW); 
+  //   digitalWrite(StepE2,LOW); 
+  //   delayMicroseconds(DelayMicroE);
+  // }
 
-  for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
+  for(int x = 0; x<350; x++) { // loop for 200 steps
     digitalWrite(DirE, LOW); // set direction, LOW for anticlockwise
     digitalWrite(StepE,HIGH);
     digitalWrite(DirE2, LOW); // set direction, LOW for anticlockwise
@@ -175,22 +175,18 @@ void loop() {
 
   if(button0.isPressed()){
     Serial.println("The button 1 is pressed");
-    cnc_sheildX();
     cnc_sheildE();
   }
 
   if(button1.isPressed()){
     Serial.println("The button 2 is pressed");
     cnc_sheildY();
-    cnc_sheildY();
-    cnc_sheildY();
+
 
   }
 
   if(button2.isPressed()){
     Serial.println("The button 3 is pressed");
-    cnc_sheildZ();
-    cnc_sheildZ();
     cnc_sheildZ();
 
   }

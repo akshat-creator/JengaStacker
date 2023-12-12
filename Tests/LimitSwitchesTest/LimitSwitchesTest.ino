@@ -25,7 +25,7 @@ int X1,X2,Y1,Y2,Z1,Z2,Z3,Z4 = 0;
 /* 
 High Debounce to make sure the elevator pushers are in sync and to ignore small a small time differnece between the two 
 */
-const int LimitSwitchDebounceTime = 500;  // 
+const int LimitSwitchDebounceTime = 50;  // 
 
 const int StepX = 2;
 const int DirX = 5;
@@ -82,17 +82,21 @@ void setup() {
   pinMode(StepE2,OUTPUT);
   pinMode(DirE2,OUTPUT);
 
+  pinMode(26,INPUT_PULLUP);
+
 }
 
 void cnc_sheildX() {
-  
-  while(buttonX1.getState()==1) {
+  Serial.println("Shield X");
+  if(buttonX1.isPressed()==1) {
+    Serial.println(buttonX1.isPressed());
+
     digitalWrite(DirX, LOW); // set direction, HIGH for clockwise
     digitalWrite(StepX,HIGH);
     delayMicroseconds(DelayMicroX);
     digitalWrite(StepX,LOW); 
     delayMicroseconds(DelayMicroX);
- 
+
     digitalWrite(DirA, HIGH); // set direction, HIGH for clockwise
     digitalWrite(StepA,HIGH);
     delayMicroseconds(DelayMicroA);
@@ -101,7 +105,12 @@ void cnc_sheildX() {
     
   }
   delay(500);
-  while(buttonX2.getState()==1) { 
+  while(buttonX2.getState()==0) { 
+
+      if(buttonX2.isPressed()){
+      Serial.println("X22222222222222");
+      break;
+    }
     digitalWrite(DirX, HIGH); // set direction, LOW for anticlockwise
     digitalWrite(StepX,HIGH);
     delayMicroseconds(DelayMicroX);
@@ -118,7 +127,7 @@ void cnc_sheildX() {
 
 void cnc_sheildY() {
 
-  for(buttonY1.getState()==1) { // loop for 200 steps
+  while(buttonY1.getState()==1); { // loop for 200 steps
     digitalWrite(DirY, HIGH);
     digitalWrite(StepY,HIGH);
     delayMicroseconds(DelayMicroY);
@@ -126,7 +135,7 @@ void cnc_sheildY() {
     delayMicroseconds(DelayMicroY);
   }
 
-  for(buttonY2.getState()==1) { // loop for 200 steps
+  while(buttonY2.getState()==1); { // loop for 200 steps
     digitalWrite(DirY, LOW); // set direction, LOW for anticlockwise
     digitalWrite(StepY,HIGH);
     delayMicroseconds(DelayMicroY);
@@ -137,7 +146,7 @@ void cnc_sheildY() {
 
 void cnc_sheildZ(){
 
-  for(buttonZ1.getState()==1) { // loop for 200 steps
+  while(buttonZ1.getState()==1) { // loop for 200 steps
     digitalWrite(DirZ, HIGH);
     digitalWrite(StepZ,HIGH);
     delayMicroseconds(DelayMicroZ);
@@ -145,7 +154,7 @@ void cnc_sheildZ(){
     delayMicroseconds(DelayMicroZ);
   }
 
-  for(buttonZ2.getState()==1) { // loop for 200 steps
+  while(buttonZ2.getState()==1) { // loop for 200 steps
     digitalWrite(DirZ, LOW); // set direction, LOW for anticlockwise
     digitalWrite(StepZ,HIGH);
     delayMicroseconds(DelayMicroZ);
@@ -184,6 +193,9 @@ void loop() {
   button0.loop(); // MUST call the loop() function first
   button1.loop(); // MUST call the loop() function first
   button2.loop(); // MUST call the loop() function first
+  buttonX1.loop();
+  buttonX2.loop();
+
 
   digitalWrite(DirX, HIGH); // set direction, HIGH for clockwise, LOW for anticlockwise
   digitalWrite(DirY, HIGH);
@@ -192,27 +204,31 @@ void loop() {
   digitalWrite(DirE2, HIGH);
 
   // If the switch changed, due to noise or pressing:
-
+  //Serial.println(buttonX1.isPressed());
+  Serial.println(buttonX1.isPressed());
   if(button0.isPressed()){
     Serial.println("The button 1 is pressed");
     cnc_sheildX();
-    cnc_sheildE();
   }
 
-  if(button1.isPressed()){
-    Serial.println("The button 2 is pressed");
-    cnc_sheildY();
-    cnc_sheildY();
-    cnc_sheildY();
+  // if(button1.isPressed()){
+  //   Serial.println("The button 2 is pressed");
+  //   cnc_sheildY();
+  //   cnc_sheildY();
+  //   cnc_sheildY();
 
-  }
+  // }
 
-  if(button2.isPressed()){
-    Serial.println("The button 3 is pressed");
-    cnc_sheildZ();
-    cnc_sheildZ();
-    cnc_sheildZ();
+  // if(button2.isPressed()){
+  //   Serial.println("The button 3 is pressed");
+  //   cnc_sheildZ();
+  //   cnc_sheildZ();
+  //   cnc_sheildZ();
 
-  }
+  // }
 
 }
+
+
+
+*/
