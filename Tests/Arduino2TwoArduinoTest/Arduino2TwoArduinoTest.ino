@@ -1,5 +1,5 @@
 #include <ezButton.h>
-
+ 
 ezButton button0(9);
 ezButton button1(10);  
 ezButton button2(11);
@@ -14,29 +14,29 @@ int buttonState;            // the current reading from the input pin
 int lastButtonState = LOW;  // the previous reading from the input pin
 
 
-const int StepX = 2;
-const int DirX = 5;
-const int StepY = 3;
-const int DirY = 6;
-const int StepZ = 4;
-const int DirZ = 7;
-const int StepA = 12;
-const int DirA = 13;
-const int StepE = 23;
-const int DirE = 22;
-const int StepE2 = 25;
-const int DirE2 = 24;
+// const int StepX = 2;
+// const int DirX = 5;
+// const int StepY = 3;
+// const int DirY = 6;
+// const int StepZ = 4;
+// const int DirZ = 7;
+// const int StepA = 12;
+// const int DirA = 13;
+const int StepE = 2;
+const int DirE = 5;
+const int StepE2 = 12;
+const int DirE2 = 13;
 
-int StepCountX = 800;
-int StepCountY = 570;
-int StepCountZ = 570;
-int StepCountA = 800;
+// int StepCountX = 800;
+// int StepCountY = 570;
+// int StepCountZ = 570;
+// int StepCountA = 800;
 int StepCountE = 1100;
 
-int DelayMicroX = 600;
-int DelayMicroY = 650;
-int DelayMicroZ = 600;
-int DelayMicroA = 600;
+// int DelayMicroX = 600;
+// int DelayMicroY = 650;
+// int DelayMicroZ = 600;
+// int DelayMicroA = 600;
 int DelayMicroE = 700;
 
 
@@ -46,14 +46,14 @@ void setup() {
   button1.setDebounceTime(50); // set debounce time to 50 milliseconds
   button2.setDebounceTime(50); // set debounce time to 50 milliseconds
 
-  pinMode(StepX,OUTPUT);
-  pinMode(DirX,OUTPUT);
-  pinMode(StepY,OUTPUT);
-  pinMode(DirY,OUTPUT);
-  pinMode(StepZ,OUTPUT);
-  pinMode(DirZ,OUTPUT);
-  pinMode(StepA,OUTPUT);
-  pinMode(DirA,OUTPUT);
+  // pinMode(StepX,OUTPUT);
+  // pinMode(DirX,OUTPUT);
+  // pinMode(StepY,OUTPUT);
+  // pinMode(DirY,OUTPUT);
+  // pinMode(StepZ,OUTPUT);
+  // pinMode(DirZ,OUTPUT);
+  // pinMode(StepA,OUTPUT);
+  // pinMode(DirA,OUTPUT);
   pinMode(StepE,OUTPUT);
   pinMode(DirE,OUTPUT);
   pinMode(StepE2,OUTPUT);
@@ -61,76 +61,76 @@ void setup() {
 
 }
 
-void cnc_sheildX() {
+// void cnc_sheildX() {
   
-  for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
-    digitalWrite(DirX, LOW); // set direction, HIGH for clockwise
-    digitalWrite(StepX,HIGH);
-    delayMicroseconds(DelayMicroX);
-    digitalWrite(StepX,LOW); 
-    delayMicroseconds(DelayMicroX);
+//   for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
+//     digitalWrite(DirX, LOW); // set direction, HIGH for clockwise
+//     digitalWrite(StepX,HIGH);
+//     delayMicroseconds(DelayMicroX);
+//     digitalWrite(StepX,LOW); 
+//     delayMicroseconds(DelayMicroX);
  
-    digitalWrite(DirA, HIGH); // set direction, HIGH for clockwise
-    digitalWrite(StepA,HIGH);
-    delayMicroseconds(DelayMicroA);
-    digitalWrite(StepA,LOW); 
-    delayMicroseconds(DelayMicroA);
+//     digitalWrite(DirA, HIGH); // set direction, HIGH for clockwise
+//     digitalWrite(StepA,HIGH);
+//     delayMicroseconds(DelayMicroA);
+//     digitalWrite(StepA,LOW); 
+//     delayMicroseconds(DelayMicroA);
  
-  }
-  delay(500);
-  for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
-    digitalWrite(DirX, HIGH); // set direction, LOW for anticlockwise
-    digitalWrite(StepX,HIGH);
-    delayMicroseconds(DelayMicroX);
-    digitalWrite(StepX,LOW); 
-    delayMicroseconds(DelayMicroX);
+//   }
+//   delay(500);
+//   for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
+//     digitalWrite(DirX, HIGH); // set direction, LOW for anticlockwise
+//     digitalWrite(StepX,HIGH);
+//     delayMicroseconds(DelayMicroX);
+//     digitalWrite(StepX,LOW); 
+//     delayMicroseconds(DelayMicroX);
 
-    digitalWrite(DirA, LOW); // set direction, LOW for anticlockwise
-    digitalWrite(StepA,HIGH);
-    delayMicroseconds(DelayMicroA);
-    digitalWrite(StepA,LOW); 
-    delayMicroseconds(DelayMicroA);
-  }
-}
+//     digitalWrite(DirA, LOW); // set direction, LOW for anticlockwise
+//     digitalWrite(StepA,HIGH);
+//     delayMicroseconds(DelayMicroA);
+//     digitalWrite(StepA,LOW); 
+//     delayMicroseconds(DelayMicroA);
+//   }
+// }
 
-void cnc_sheildY() {
+// void cnc_sheildY() {
 
-  for(int x = 0; x<StepCountY; x++) { // loop for 200 steps
-    digitalWrite(DirY, HIGH);
-    digitalWrite(StepY,HIGH);
-    delayMicroseconds(DelayMicroY);
-    digitalWrite(StepY,LOW); 
-    delayMicroseconds(DelayMicroY);
-  }
+//   for(int x = 0; x<StepCountY; x++) { // loop for 200 steps
+//     digitalWrite(DirY, HIGH);
+//     digitalWrite(StepY,HIGH);
+//     delayMicroseconds(DelayMicroY);
+//     digitalWrite(StepY,LOW); 
+//     delayMicroseconds(DelayMicroY);
+//   }
 
-  for(int x = 0; x<StepCountY; x++) { // loop for 200 steps
-    digitalWrite(DirY, LOW); // set direction, LOW for anticlockwise
-    digitalWrite(StepY,HIGH);
-    delayMicroseconds(DelayMicroY);
-    digitalWrite(StepY,LOW); 
-    delayMicroseconds(DelayMicroY);
-  }
-}
+//   for(int x = 0; x<StepCountY; x++) { // loop for 200 steps
+//     digitalWrite(DirY, LOW); // set direction, LOW for anticlockwise
+//     digitalWrite(StepY,HIGH);
+//     delayMicroseconds(DelayMicroY);
+//     digitalWrite(StepY,LOW); 
+//     delayMicroseconds(DelayMicroY);
+//   }
+// }
 
-void cnc_sheildZ(){
+// void cnc_sheildZ(){
 
-  for(int x = 0; x<StepCountZ; x++) { // loop for 200 steps
-    digitalWrite(DirZ, HIGH);
-    digitalWrite(StepZ,HIGH);
-    delayMicroseconds(DelayMicroZ);
-    digitalWrite(StepZ,LOW); 
-    delayMicroseconds(DelayMicroZ);
-  }
+//   for(int x = 0; x<StepCountZ; x++) { // loop for 200 steps
+//     digitalWrite(DirZ, HIGH);
+//     digitalWrite(StepZ,HIGH);
+//     delayMicroseconds(DelayMicroZ);
+//     digitalWrite(StepZ,LOW); 
+//     delayMicroseconds(DelayMicroZ);
+//   }
 
-  for(int x = 0; x<StepCountZ; x++) { // loop for 200 steps
-    digitalWrite(DirZ, LOW); // set direction, LOW for anticlockwise
-    digitalWrite(StepZ,HIGH);
-    delayMicroseconds(DelayMicroZ);
-    digitalWrite(StepZ,LOW); 
-    delayMicroseconds(DelayMicroZ);
-  }
+//   for(int x = 0; x<StepCountZ; x++) { // loop for 200 steps
+//     digitalWrite(DirZ, LOW); // set direction, LOW for anticlockwise
+//     digitalWrite(StepZ,HIGH);
+//     delayMicroseconds(DelayMicroZ);
+//     digitalWrite(StepZ,LOW); 
+//     delayMicroseconds(DelayMicroZ);
+//   }
   
-}
+// }
 
 void cnc_sheildE() {
 
@@ -162,9 +162,9 @@ void loop() {
   button1.loop(); // MUST call the loop() function first
   button2.loop(); // MUST call the loop() function first
 
-  digitalWrite(DirX, HIGH); // set direction, HIGH for clockwise, LOW for anticlockwise
-  digitalWrite(DirY, HIGH);
-  digitalWrite(DirZ, HIGH);
+  // digitalWrite(DirX, HIGH); // set direction, HIGH for clockwise, LOW for anticlockwise
+  // digitalWrite(DirY, HIGH);
+  // digitalWrite(DirZ, HIGH);
   digitalWrite(DirE, HIGH);
   digitalWrite(DirE2, HIGH);
 
@@ -172,18 +172,19 @@ void loop() {
 
   if(button0.isPressed()){
     Serial.println("The button 1 is pressed");
-    cnc_sheildX();
+    // cnc_sheildX();
+    Serial.println("in E");
     cnc_sheildE();
   }
 
-  if(button1.isPressed()){
-    Serial.println("The button 2 is pressed");
-    cnc_sheildY();
-  }
+  // if(button1.isPressed()){
+  //   Serial.println("The button 2 is pressed");
+  //   cnc_sheildY();
+  // }
 
-  if(button2.isPressed()){
-    Serial.println("The button 3 is pressed");
-    cnc_sheildZ();
-  }
+  // if(button2.isPressed()){
+  //   Serial.println("The button 3 is pressed");
+  //   cnc_sheildZ();
+  // }
 
 }

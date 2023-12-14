@@ -125,30 +125,30 @@ void cnc_sheildZ(){
   
 }
 
-void cnc_sheildE() {
+// void cnc_sheildE() {
 
-  for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
-    digitalWrite(DirE, HIGH);
-    digitalWrite(StepE,HIGH);
-    digitalWrite(DirE2, HIGH);
-    digitalWrite(StepE2,HIGH);
-    delayMicroseconds(DelayMicroE);
-    digitalWrite(StepE,LOW); 
-    digitalWrite(StepE2,LOW); 
-    delayMicroseconds(DelayMicroE);
-  }
+//   for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
+//     digitalWrite(DirE, HIGH);
+//     digitalWrite(StepE,HIGH);
+//     digitalWrite(DirE2, HIGH);
+//     digitalWrite(StepE2,HIGH);
+//     delayMicroseconds(DelayMicroE);
+//     digitalWrite(StepE,LOW); 
+//     digitalWrite(StepE2,LOW); 
+//     delayMicroseconds(DelayMicroE);
+//   }
 
-  for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
-    digitalWrite(DirE, LOW); // set direction, LOW for anticlockwise
-    digitalWrite(StepE,HIGH);
-    digitalWrite(DirE2, LOW); // set direction, LOW for anticlockwise
-    digitalWrite(StepE2,HIGH);
-    delayMicroseconds(DelayMicroE);
-    digitalWrite(StepE,LOW); 
-    digitalWrite(StepE2,LOW); 
-    delayMicroseconds(DelayMicroE);
-  }
-}
+//   for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
+//     digitalWrite(DirE, LOW); // set direction, LOW for anticlockwise
+//     digitalWrite(StepE,HIGH);
+//     digitalWrite(DirE2, LOW); // set direction, LOW for anticlockwise
+//     digitalWrite(StepE2,HIGH);
+//     delayMicroseconds(DelayMicroE);
+//     digitalWrite(StepE,LOW); 
+//     digitalWrite(StepE2,LOW); 
+//     delayMicroseconds(DelayMicroE);
+//   }
+// }
 
 void loop() {
   button0.loop(); // MUST call the loop() function first
@@ -158,15 +158,12 @@ void loop() {
   digitalWrite(DirX, HIGH); // set direction, HIGH for clockwise, LOW for anticlockwise
   digitalWrite(DirY, HIGH);
   digitalWrite(DirZ, HIGH);
-  digitalWrite(DirE, HIGH);
-  digitalWrite(DirE2, HIGH);
 
   // If the switch changed, due to noise or pressing:
 
   if(button0.isPressed()){
     Serial.println("The button 1 is pressed");
     cnc_sheildX();
-    cnc_sheildE();
   }
 
   if(button1.isPressed()){
