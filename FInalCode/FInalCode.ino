@@ -4,15 +4,6 @@ ezButton button0(9);
 ezButton button1(10);  
 ezButton button2(11);
 
-// const int buttonPin0 = A2;  // the number of the pushbutton pin
-// const int buttonPin1 = A1;  // the number of the pushbutton pin
-// const int buttonPin2 = A2;  // the number of the pushbutton pin
-
-// Variables will change:
-int ledState = HIGH;        // the current state of the output pin
-int buttonState;            // the current reading from the input pin
-int lastButtonState = LOW;  // the previous reading from the input pin
-
 int count1 = 0;
 int count2 = 0;
 
@@ -95,77 +86,6 @@ void cnc_sheildX() {
   }
   delay(500);
 
-  // for(int x = 0; x<600; x++) { // loop for 200 steps
- 
-  //   digitalWrite(DirA, HIGH); // set direction, HIGH for clockwise
-  //   digitalWrite(StepA,HIGH);
-  //   delayMicroseconds(DelayMicroA);
-  //   digitalWrite(StepA,LOW); 
-  //   delayMicroseconds(DelayMicroA);
- 
-  // }
-  // delay(500);
-
-  // for(int x = 0; x<StepCountX+600; x++) { // loop for 200 steps
- 
-  //   digitalWrite(DirA, LOW); // set direction, HIGH for clockwise
-  //   digitalWrite(StepA,HIGH);
-  //   delayMicroseconds(DelayMicroA);
-  //   digitalWrite(StepA,LOW); 
-  //   delayMicroseconds(DelayMicroA);
- 
-  // }
-  // delay(500);
-
-  // for(int x = 0; x<600; x++) { // loop for 200 steps
- 
-  //   digitalWrite(DirX, LOW); // set direction, HIGH for clockwise
-  //   digitalWrite(StepX,HIGH);
-  //   delayMicroseconds(DelayMicroX);
-  //   digitalWrite(StepX,LOW); 
-  //   delayMicroseconds(DelayMicroX);
- 
-  // }
-  // delay(500);
-
-  // for(int x = 0; x<StepCountX+600; x++) { // loop for 200 steps
- 
-  //   digitalWrite(DirX, HIGH); // set direction, LOW for anticlockwise
-  //   digitalWrite(StepX,HIGH);
-  //   delayMicroseconds(DelayMicroX);
-  //   digitalWrite(StepX,LOW); 
-  //   delayMicroseconds(DelayMicroX);
- 
-  // }
-  // delay(500);
-  // for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
-  //   digitalWrite(DirX, LOW); // set direction, HIGH for clockwise
-  //   digitalWrite(StepX,HIGH);
-  //   delayMicroseconds(DelayMicroX);
-  //   digitalWrite(StepX,LOW); 
-  //   delayMicroseconds(DelayMicroX);
- 
-  //   digitalWrite(DirA, HIGH); // set direction, HIGH for clockwise
-  //   digitalWrite(StepA,HIGH);
-  //   delayMicroseconds(DelayMicroA);
-  //   digitalWrite(StepA,LOW); 
-  //   delayMicroseconds(DelayMicroA);
- 
-  // }
-  // delay(500);
-  // for(int x = 0; x<StepCountX; x++) { // loop for 200 steps
-  //   digitalWrite(DirX, HIGH); // set direction, LOW for anticlockwise
-  //   digitalWrite(StepX,HIGH);
-  //   delayMicroseconds(DelayMicroX);
-  //   digitalWrite(StepX,LOW); 
-  //   delayMicroseconds(DelayMicroX);
-
-  //   digitalWrite(DirA, LOW); // set direction, LOW for anticlockwise
-  //   digitalWrite(StepA,HIGH);
-  //   delayMicroseconds(DelayMicroA);
-  //   digitalWrite(StepA,LOW); 
-  //   delayMicroseconds(DelayMicroA);
-  // }
 }
 
 void cnc_sheildY() {
@@ -209,16 +129,6 @@ void cnc_sheildZ(){
 
 void cnc_sheildE() {
 
-  // for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
-  //   digitalWrite(DirE, HIGH);
-  //   digitalWrite(StepE,HIGH);
-  //   digitalWrite(DirE2, HIGH);
-  //   digitalWrite(StepE2,HIGH);
-  //   delayMicroseconds(DelayMicroE);
-  //   digitalWrite(StepE,LOW); 
-  //   digitalWrite(StepE2,LOW); 
-  //   delayMicroseconds(DelayMicroE);
-  // }
   delay(500);
   for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
     digitalWrite(DirE, LOW); // set direction, LOW for anticlockwise
@@ -247,8 +157,7 @@ void loop() {
   // If the switch changed, due to noise or pressing:
 
   if(button0.isPressed()){
-    Serial.println("The button 0 is pressed");
-    //cnc_sheildX();
+    Serial.println("The button 0 is pressed");  
     cnc_sheildE();
   //   for(int x = 0; x<StepCountE; x++) { // loop for 200 steps
   //   digitalWrite(DirE, HIGH); // set direction, LOW for anticlockwise
